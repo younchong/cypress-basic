@@ -1,4 +1,6 @@
 export default function Counter({ $app }) {
+  let defaultCount = 10;
+  let countDisplay = HTMLInputElement || null;
   const render = () => {
     $app.innerHTML = `
        <div class="container">
@@ -11,8 +13,29 @@ export default function Counter({ $app }) {
         </div>`;
   };
 
+  const plusButtonHandler = () => {
+    if (defaultCount < 12) {
+      defaultCount++;
+    }
+    if (countDisplay) {
+      countDisplay.value = defaultCount.toString();
+    }
+  }
+
+  const minusButtonHandler = () => {
+    if (defaultCount > 8) {
+      defaultCount--;
+    }
+    if (countDisplay) {
+      countDisplay.value = defaultCount.toString();
+    }
+  }
+
   const init = () => {
     render();
+    countDisplay = document.querySelector(".count-display");
+    document.querySelector(".plus-button").addEventListener("click", plusButtonHandler);
+    document.querySelector(".minus-button").addEventListener("click", minusButtonHandler);
   };
 
   init();
